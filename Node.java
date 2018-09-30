@@ -6,8 +6,23 @@ public class Node {
 	private Node parentNode;
 	private int[] state;
 	private String printableCode=null;
-	private String direction;
+	private Direction direction=new Direction();
+	private int depthOfNode; 
 	
+	public Node()
+	{
+		
+	}
+	
+	public Node(int depthOfNode)
+	{
+		this.depthOfNode=depthOfNode;
+	}
+	
+	public int getHeristicsValue()
+	{
+		return Heuristics.getHerirsticValue(this.getState())+depthOfNode;
+	}
 	
 	public void setState(int[] state)
 	{
@@ -71,6 +86,19 @@ public class Node {
 		return result;
 	}
 	
+
+	
+	public void setMovement(int pirority,String direction)
+	{
+		this.direction.setDirectionName(direction);
+		this.direction.setPirority(pirority);
+	}
+	
+	public Direction getMovement()
+	{
+		return this.direction;
+	}
+	
 //	public String getPrintableInfo()
 //	{
 //		if(printableCode!=null)
@@ -87,14 +115,23 @@ public class Node {
 //		printableCode=result;
 //		return result;
 //	}
-	
-	public void setMovement(String direction)
-	{
-		this.direction=direction;
+}
+
+class Direction
+{
+  private int pirority;
+  private String directionName;
+	public int getPirority() {
+		return pirority;
 	}
-	
-	public String getMovement()
-	{
-		return this.direction;
+	public void setPirority(int pirority) {
+		this.pirority = pirority;
+	}
+	public String getDirectionName() {
+		return directionName;
+	}
+	public void setDirectionName(String directionName) {
+		this.directionName = directionName;
 	}
 }
+

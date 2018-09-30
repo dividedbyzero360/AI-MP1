@@ -13,58 +13,9 @@ public class DFS {
 	}
 
 	
-	public void go() {
-		toVisitChildren.push(board.getInitialStateNode());
-		while (!toVisitChildren.isEmpty()) {
-			Node temp = toVisitChildren.pop();
-			if(!alreadyKnownChildren.contains(temp.getCode()))
-			{
-				alreadyKnownChildren.add(temp.getCode());
-				//System.out.println(temp.getPrintableInfo());
-				if (Board.isCurrentStateGoalState(temp.getState())) {
-					System.out.println("Got goal State");
-					goalNode = temp;
-					return;
-				}
-				ArrayList<Node> children = board.generateChildren(temp);
-				for (int i =  children.size()-1; i >=0; i--) {
-					Node t = children.get(i);
-						toVisitChildren.push(t);
-					
-				}
-			}
-			
-
-		}
-
-	}
-	
-	public void go2(){
-		toVisitChildren.push(board.getInitialStateNode());
-		while(!toVisitChildren.isEmpty()){
-			Node temp=toVisitChildren.pop();
-			alreadyKnownChildren.add(temp.getCode());
-			if (Board.isCurrentStateGoalState(temp.getState())) {
-				System.out.println("Got goal State");
-				goalNode = temp;
-				return;
-			}
-			ArrayList<Node> children = board.generateChildren(temp);
-			for (int i =  children.size()-1; i >=0; i--) {
-				Node child = children.get(i);
-				if(!alreadyKnownChildren.contains(child.getCode()))
-					toVisitChildren.push(child);
-				
-			}
-			
-			
-		}
-	}
-	
 	public Node getGoalNode(){
 		return goalNode;
 	}
-	
 	
 	
 	//For now correct version
@@ -73,7 +24,9 @@ public class DFS {
 		toVisitChildren.push(board.getInitialStateNode());
 		alreadyKnownChildren.add(board.getInitialStateNode().getCode());
 		
+		int n=0;
 		while (!toVisitChildren.isEmpty()) {
+			n++;
 			Node temp = toVisitChildren.pop();
 			//System.out.println(temp.getPrintableInfo());
 			if (Board.isCurrentStateGoalState(temp.getState())) {
@@ -102,11 +55,91 @@ public class DFS {
 			}
 
 		}
+		System.out.println(n);
 
+	}
+	
+	
+	public void realDFS(){
+		toVisitChildren.push(board.getInitialStateNode());
+		while (!toVisitChildren.isEmpty())
+		{
+			Node temp = toVisitChildren.pop();
+			if(Board.isCurrentStateGoalState(temp.getState()))
+			{
+				System.out.println("Got goal State");
+				goalNode = temp;
+				return;
+			}
+			alreadyKnownChildren.add(temp.getCode());
+			ArrayList<Node> children = board.generateChildren(temp);
+			for (int i =  children.size()-1; i >=0; i--) {
+				Node t = children.get(i);
+				if(!alreadyKnownChildren.contains(t.getCode()))
+				{
+					toVisitChildren.push(t);
+				}
+			}
+			
+		}
+		
 	}
 	
 }
 
+
+
+
+
+
+//
+//public void go() {
+//	toVisitChildren.push(board.getInitialStateNode());
+//	while (!toVisitChildren.isEmpty()) {
+//		Node temp = toVisitChildren.pop();
+//		if(!alreadyKnownChildren.contains(temp.getCode()))
+//		{
+//			alreadyKnownChildren.add(temp.getCode());
+//			//System.out.println(temp.getPrintableInfo());
+//			if (Board.isCurrentStateGoalState(temp.getState())) {
+//				System.out.println("Got goal State");
+//				goalNode = temp;
+//				return;
+//			}
+//			ArrayList<Node> children = board.generateChildren(temp);
+//			for (int i =  children.size()-1; i >=0; i--) {
+//				Node t = children.get(i);
+//					toVisitChildren.push(t);
+//				
+//			}
+//		}
+//		
+//
+//	}
+//
+//}
+//
+//public void go2(){
+//	toVisitChildren.push(board.getInitialStateNode());
+//	while(!toVisitChildren.isEmpty()){
+//		Node temp=toVisitChildren.pop();
+//		alreadyKnownChildren.add(temp.getCode());
+//		if (Board.isCurrentStateGoalState(temp.getState())) {
+//			System.out.println("Got goal State");
+//			goalNode = temp;
+//			return;
+//		}
+//		ArrayList<Node> children = board.generateChildren(temp);
+//		for (int i =  children.size()-1; i >=0; i--) {
+//			Node child = children.get(i);
+//			if(!alreadyKnownChildren.contains(child.getCode()))
+//				toVisitChildren.push(child);
+//			
+//		}
+//		
+//		
+//	}
+//}
 
 
 ////System.out.println(t.getPrintableInfo());
@@ -114,3 +147,11 @@ public class DFS {
 //{
 //	throw new RuntimeException("Not possibele");
 //}
+
+
+
+
+
+
+
+

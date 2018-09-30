@@ -50,7 +50,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-4));
 			child.setTileConfig(indexOfBlankTitle-4);
 			child.setParent(currentState);
-			child.setMovement("UP");
+			child.setMovement(1,"UP");
 			childrens.add(child);
 		}
 		//Generate UP –RIGHT
@@ -61,7 +61,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-3));
 			child.setTileConfig(indexOfBlankTitle-3);
 			child.setParent(currentState);
-			child.setMovement("UP-Right");
+			child.setMovement(2,"UP-Right");
 			childrens.add(child);
 		}
 		//Generate RIGHT
@@ -72,7 +72,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+1));
 			child.setTileConfig(indexOfBlankTitle+1);
 			child.setParent(currentState);
-			child.setMovement("Right");
+			child.setMovement(3,"Right");
 			childrens.add(child);
 		}
 		//Generate DOWN- RIGHT
@@ -82,7 +82,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+5));
 			child.setTileConfig(indexOfBlankTitle+5);
 			child.setParent(currentState);
-			child.setMovement("DOWN-Right");
+			child.setMovement(4,"DOWN-Right");
 			childrens.add(child);
 		}
 		//Generate DOWN
@@ -93,7 +93,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+4));
 			child.setTileConfig(indexOfBlankTitle+4);
 			child.setParent(currentState);
-			child.setMovement("DOWN");
+			child.setMovement(5,"DOWN");
 			childrens.add(child);
 		}
 		//Generate DOWN –LEFT
@@ -104,7 +104,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+3));
 			child.setTileConfig(indexOfBlankTitle+3);
 			child.setParent(currentState);
-			child.setMovement("DOWN-Left");
+			child.setMovement(6,"DOWN-Left");
 			childrens.add(child);
 		}
 		
@@ -116,7 +116,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-1));
 			child.setTileConfig(indexOfBlankTitle-1);
 			child.setParent(currentState);
-			child.setMovement("LEFT");
+			child.setMovement(7,"LEFT");
 			childrens.add(child);
 		}
 		//Generate UP–LEFT
@@ -127,7 +127,7 @@ public class Board {
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-5));
 			child.setTileConfig(indexOfBlankTitle-5);
 			child.setParent(currentState);
-			child.setMovement("UP-LEFT");
+			child.setMovement(8,"UP-LEFT");
 			childrens.add(child);
 		}
 		return childrens;
