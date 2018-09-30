@@ -6,7 +6,8 @@ public class Heuristics {
 	private static boolean cached=false;
 	private static HashMap<Integer,ArrayList<Integer>> numbersThatFollowANumberInGoalState=new HashMap<Integer,ArrayList<Integer>>();
 	private static HeuristicsType whichHeristics;
-	
+	private static HashMap<Integer,Integer> mapOfTitleNumberToIndex=new HashMap<>();
+	public static int noOfColumns=4;
 	
 	public static final void setGoalState(int[] goalState)
 	{
@@ -100,7 +101,44 @@ public class Heuristics {
 	//h3  Not generic
 	public static final int manhattanDistance(int[] state)
 	{
+		if(!cached)
+		{
+			for(int i=0;i<goalState.length;i++)
+			{
+				mapOfTitleNumberToIndex.put(goalState[i], i);
+				
+			}
+			cached=true;
+		}
+		
 		int md=0;
+		for(int i =0;i < state.length;i++)
+		{
+			if(state[i]!=0)
+			{
+				int item=state[i];
+				int indexOfitemInState=i;
+				int indexOfItemInGoal=mapOfTitleNumberToIndex.get(item);
+//				int rowOfItemInState=indexOfitemInState/noOfRows;
+//				int columnOfitemInState=indexOfitemInState%noOfColumns;
+//				int rowOfItemInGoal=indexOfItemInGoal/noOfRows;
+//				int columnOfItemInGoal=indexOfItemInGoal%noOfColumns;
+				
+				int rowOfItemInState=indexOfitemInState/noOfColumns;
+				int columnOfitemInState=indexOfitemInState%noOfColumns;
+				int rowOfItemInGoal=indexOfItemInGoal/noOfColumns;
+				int columnOfItemInGoal=indexOfItemInGoal%noOfColumns;
+				
+//				int rowOfItemInState=indexOfitemInState/noOfColumns;
+//				int columnOfitemInState=indexOfitemInState%noOfRows;
+//				int rowOfItemInGoal=indexOfItemInGoal/noOfColumns;
+//				int columnOfItemInGoal=indexOfItemInGoal%noOfRows;
+				
+				int manhattanDistanceForTheTitle=Math.abs(rowOfItemInState-rowOfItemInGoal)+Math.abs(columnOfitemInState-columnOfItemInGoal);
+				System.out.println("For item "+item +" manhattanDistanceForTheTitle "+manhattanDistanceForTheTitle);
+				md+=manhattanDistanceForTheTitle;
+			}
+		}
 		return md;
 	}
 	

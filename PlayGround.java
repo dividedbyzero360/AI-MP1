@@ -1,16 +1,18 @@
+import java.util.Queue;
 
 public class PlayGround {
 
 	public static void main(String[] args) throws Exception {
 		int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};
 		//int[] initialState={1,2,6,4,5,9,7,3,0,10,11,8}; // Professor
-		int[] initialState={1,0,3,7,5,2,6,4,9,10,11,8}; // Professor 2
+		int[] initialState={0,11,10,9,8,7,6,5,4,3,2,1};
+		//int[] initialState={1,0,3,7,5,2,6,4,9,10,11,8}; // Professor 2
 		//int[] initialState={1,2,3,4,5,6,7,8,9,10,11,0};
 		//1 0 3 7 5 2 6 4 9 10 11 8
 		//1 0 3 7 5 2 6 4 9 10 11 8
 		Board board=new Board(goalState,initialState,BlankTileMovementDirection.CLOCKWISE_STARTING_FROM_UP);
 		Heuristics.setGoalState(goalState);
-		Heuristics.setWhichHeristics(HeuristicsType.MisplacedTiles);
+		Heuristics.setWhichHeristics(HeuristicsType.SUM_OF_PI);
 		BestFirstSearch bfs=new BestFirstSearch(board);
 		bfs.go();
 		//DFS dfs=new DFS(board);

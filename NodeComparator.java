@@ -17,12 +17,19 @@ public class NodeComparator implements Comparator<Node> {
 		{
 			if(movementPriority==BlankTileMovementDirection.CLOCKWISE_STARTING_FROM_UP)
 			{
+//				System.out.println("***************************************************");
+//				System.out.println("o1 "+o1.getMovement().getDirectionName()  + " "+o1.getMovement().getPirority() + " "+o1.getHeristicsValue() );
+//				System.out.println("o2 "+o2.getMovement().getDirectionName()  + " "+o2.getMovement().getPirority() + " "+o2.getHeristicsValue());
+//				System.out.println("***************************************************");
 				return o1.getMovement().getPirority()-o2.getMovement().getPirority();	
 			}else{
+//				if(1==1)
+//				{
+//					throw new RuntimeException("Fiales");	
+//				}
+				
 				return o2.getMovement().getPirority()-o1.getMovement().getPirority();	
 			}
-				
-			
 		}
 		return diff;
 	}

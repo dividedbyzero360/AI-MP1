@@ -27,9 +27,9 @@ public class BestFirstSearch {
 		alreadyKnownChildren.add(board.getInitialStateNode().getCode());
 		while (!queue.isEmpty()) {
 			Node temp=queue.poll();
-			System.out.println("The node that comes out from priority queue is");
-			Utility.printMatrix(temp.getState(),temp.getMovement().getDirectionName(),temp.getHeristicsValue());
-			System.out.println("--------------------------------------------------------------");
+//			System.out.println("The node that comes out from priority queue is");
+//			Utility.printMatrix(temp.getState(),temp.getMovement().getDirectionName(),temp.getHeristicsValue());
+//			System.out.println("--------------------------------------------------------------");
 			if (Board.isCurrentStateGoalState(temp.getState())) {
 				System.out.println("Got goal State");
 				goalNode = temp;
@@ -38,7 +38,7 @@ public class BestFirstSearch {
 			ArrayList<Node> children = board.generateChildren(temp);
 			for (int i =  0; i <children.size() ; i++) {
 				Node t = children.get(i);
-				Utility.printMatrix(t.getState(),t.getMovement().getDirectionName(),t.getHeristicsValue());
+				//Utility.printMatrix(t.getState(),t.getMovement().getDirectionName(),t.getHeristicsValue());
 				
 				if(Board.isCurrentStateGoalState(t.getState()))
 				{
@@ -50,6 +50,15 @@ public class BestFirstSearch {
 					return;
 					
 				}
+//				if( t.getCode().equals("72108391041165"))
+//				{
+//					boolean dw=alreadyKnownChildren.contains("72198351041160");
+//					throw new RuntimeException("HEREREE "+dw);
+//				}
+//				if(alreadyKnownChildren.contains("72198351041160"))
+//				{
+//					throw new RuntimeException("HEREREE ");
+//				}
 				if (!alreadyKnownChildren.contains(t.getCode()) ) {
 					queue.add(t);
 					alreadyKnownChildren.add(t.getCode());
