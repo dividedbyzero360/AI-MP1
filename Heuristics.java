@@ -5,22 +5,28 @@ public class Heuristics {
 	
 	private static boolean cached=false;
 	private static HashMap<Integer,ArrayList<Integer>> numbersThatFollowANumberInGoalState=new HashMap<Integer,ArrayList<Integer>>();
-	private static int whichHeristics;
+	private static HeuristicsType whichHeristics;
 	
-	public Heuristics(int[] goalState,int whichHeristics){
+	
+	public static final void setGoalState(int[] goalState)
+	{
+		Heuristics.cached=false;
 		Heuristics.goalState=goalState;
+	}
+	
+	public static final void setWhichHeristics(HeuristicsType whichHeristics)
+	{
 		Heuristics.whichHeristics=whichHeristics;
 		Heuristics.cached=false;
 	}
 	
-	
 	public static final int getHerirsticValue(int[] state)
 	{
-		if(whichHeristics==1)
+		if(whichHeristics==HeuristicsType.MisplacedTiles)
 		{
 			return Heuristics.numberOfMisplacedTitlesSlow(state);
 		}
-		else if(whichHeristics==2)
+		else if(whichHeristics==HeuristicsType.SUM_OF_PI)
 		{
 			return Heuristics.sumPermutationInversionSlow(state);
 		}

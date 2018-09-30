@@ -22,13 +22,34 @@ public class Utility {
 		System.out.println("\n");
 	}
 	
+	public static final void printMatrix(int[] a, String direction, int hericticsValue)
+	{
+		System.out.println(direction +" "+hericticsValue);
+		for(int i=0; i< a.length;i++)
+		{
+			if(i==4  || i==8)
+			{
+				System.out.println();
+			}
+			if((a[i]+"").length()==2 )
+			{
+				System.out.print(a[i]+" ");	
+			}else
+			{
+				System.out.print(a[i]+"  ");
+			}
+			
+		}
+		System.out.println("\n");
+	}
+	
 	public static final void writeGoalTraceToFile(Node goalNode)
 	{
 		if(goalNode!=null){
 			ArrayList<String> goalStateToRootTrace=new ArrayList<String>();
 			while(goalNode!=null)
 			{
-				goalStateToRootTrace.add(goalNode.getPrintableInfo());
+				goalStateToRootTrace.add(goalNode.getPrintableInfo()+ goalNode.getMovement().getDirectionName());
 				goalNode=goalNode.getParent();
 			}
 			

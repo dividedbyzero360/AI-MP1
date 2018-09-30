@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Stack;
 
@@ -7,9 +8,10 @@ public class DFS {
 	HashSet<String> alreadyKnownChildren = new HashSet<String>();
 	Stack<Node> toVisitChildren = new Stack<Node>();
 	private Node goalNode = null;
-
+    private static final BlankTileMovementDirection movementPriority=Board.getBlankTileMovementDirection();
 	public DFS(Board board) {
 		this.board = board;
+		
 	}
 
 	
@@ -35,6 +37,10 @@ public class DFS {
 				return;
 			}
 			ArrayList<Node> children = board.generateChildren(temp);
+			if(movementPriority==BlankTileMovementDirection.ANTICLOCKWISE_STARTING_FROM_UPLEFT)
+			{
+				Collections.reverse(children);
+			}
 			for (int i =  children.size()-1; i >=0; i--) {
 				Node t = children.get(i);
 				

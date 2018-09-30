@@ -8,12 +8,15 @@ public class PlayGround {
 		//int[] initialState={1,2,3,4,5,6,7,8,9,10,11,0};
 		//1 0 3 7 5 2 6 4 9 10 11 8
 		//1 0 3 7 5 2 6 4 9 10 11 8
-		System.out.println("HELELE");
-		Board board=new Board(goalState,initialState);
-		DFS dfs=new DFS(board);
-        dfs.go1();
-        //dfs.realDFS();
-        Utility.writeGoalTraceToFile(dfs.getGoalNode());
+		Board board=new Board(goalState,initialState,BlankTileMovementDirection.CLOCKWISE_STARTING_FROM_UP);
+		Heuristics.setGoalState(goalState);
+		Heuristics.setWhichHeristics(HeuristicsType.MisplacedTiles);
+		BestFirstSearch bfs=new BestFirstSearch(board);
+		bfs.go();
+		//DFS dfs=new DFS(board);
+        //dfs.go1();
+//        //dfs.realDFS();
+        Utility.writeGoalTraceToFile(bfs.getGoalNode());
 	}
 
 }

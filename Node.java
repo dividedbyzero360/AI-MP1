@@ -61,12 +61,14 @@ public class Node {
 	}
 	
 	public String getCode(){
-		String s="";
+		StringBuilder sb=new StringBuilder();
+		//String s="";
 		for(int i=0;i<state.length;i++)
 		{
-			s+=state[i]+"";
+			//ss+=state[i]+"";
+			sb.append(state[i]+"");
 		}
-		return s;
+		return sb.toString();
 	}
 	
 	public String getPrintableInfo()
@@ -75,11 +77,15 @@ public class Node {
 		{
 			return printableCode;
 		}
-		String result=titleConfig + "[";
+		StringBuilder sb=new StringBuilder();
+		//String result=titleConfig + "[";
+		sb.append(titleConfig + "[");
 		for(int i=0;i<state.length;i++)
 		{
-			result+=state[i]+", ";
+			//result+=state[i]+", ";
+			sb.append(state[i]+", ");
 		}
+		String result=sb.toString();
 		result=result.substring(0, result.length()-2);
 		result+="]";
 		printableCode=result;

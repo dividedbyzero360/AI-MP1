@@ -3,16 +3,22 @@ import java.util.Arrays;
 
 public class Board {
 	
-	//private static int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};//Professor
-	//private static int[] goalState={1,2,3,0,5,6,7,4,9,10,11,8};
 	private static int[] goalState;
 	private int[] initialState;
+	private static BlankTileMovementDirection movementPriority;
 	
-	public Board(int[] goalState,int[] initialState)
+	public Board(int[] goalState,int[] initialState, BlankTileMovementDirection movementPriority)
 	{
 		Board.goalState=goalState;
+		Board.movementPriority=movementPriority;
 		this.initialState=initialState;
 	}
+	
+	public static final BlankTileMovementDirection getBlankTileMovementDirection()
+	{
+		return Board.movementPriority;
+	}
+	
 	
 	public Node getInitialStateNode(){
 		Node root=new Node();

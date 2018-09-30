@@ -1,0 +1,4 @@
+
+public enum BlankTileMovementDirection {
+	CLOCKWISE_STARTING_FROM_UP, ANTICLOCKWISE_STARTING_FROM_UPLEFT
+}

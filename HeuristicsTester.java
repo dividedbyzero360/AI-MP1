@@ -1,7 +1,7 @@
 
 public class HeuristicsTester {
 
-	 static Heuristics h=null;
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		long startTime=System.currentTimeMillis();
@@ -24,7 +24,7 @@ public class HeuristicsTester {
 		
 		int[] goalState={1,2,3,4,5,6,7,8,0};
 		int[] state={5,0,8,4,2,1,7,3,6};
-		h=new Heuristics(goalState,1);
+		Heuristics.setGoalState(goalState);
 		int output1=Heuristics.sumPermutationInversionSlow(state);
 		if(output1!=16)
 		{
@@ -45,7 +45,7 @@ public class HeuristicsTester {
 	{
 		int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};
 		int[] state={1,2,6,4,5,9,7,3,0,10,11,8};
-		h=new Heuristics(goalState,1);
+		Heuristics.setGoalState(goalState);
 		int output1=Heuristics.sumPermutationInversionSlow(state);
 		if(output1!=11)
 		{
@@ -66,7 +66,7 @@ public class HeuristicsTester {
 	{
 		int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};
 		int[] state={1,2,6,4,5,9,7,3,0,10,11,8};
-		h=new Heuristics(goalState,1);
+		Heuristics.setGoalState(goalState);
 		int output1=Heuristics.numberOfMisplacedTitlesSlow(state);
 		//System.out.println(output1); // should return 4
 		if(output1!=4)
@@ -85,7 +85,7 @@ public class HeuristicsTester {
 	public static void noOfMisplaceTitlesFor8puzzle()
 	{
 		int[] goalState={1,2,3,8,0,4,7,6,5};
-		h=new Heuristics(goalState,1);
+		Heuristics.setGoalState(goalState);
 		int[] state1={2,8,3,1,6,4,7,0,5};
 		int[] state2={2,8,3,1,6,4,0,7,5};
 		int[] state3={2,8,3,1,0,4,7,6,5};
