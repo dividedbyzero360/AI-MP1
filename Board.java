@@ -5,11 +5,12 @@ public class Board {
 	
 	//private static int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};//Professor
 	//private static int[] goalState={1,2,3,0,5,6,7,4,9,10,11,8};
-	private static int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};
+	private static int[] goalState;
 	private int[] initialState;
 	
-	public Board(int[] initialState)
+	public Board(int[] goalState,int[] initialState)
 	{
+		Board.goalState=goalState;
 		this.initialState=initialState;
 	}
 	

@@ -9,8 +9,8 @@ public class Heuristics {
 	
 	public Heuristics(int[] goalState,int whichHeristics){
 		Heuristics.goalState=goalState;
-		cached=false;
-		this.whichHeristics=whichHeristics;
+		Heuristics.whichHeristics=whichHeristics;
+		Heuristics.cached=false;
 	}
 	
 	

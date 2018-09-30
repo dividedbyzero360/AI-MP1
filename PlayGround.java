@@ -1,16 +1,15 @@
-import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.io.BufferedReader;
+
 public class PlayGround {
 
 	public static void main(String[] args) throws Exception {
+		int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};
 		//int[] initialState={1,2,6,4,5,9,7,3,0,10,11,8}; // Professor
 		int[] initialState={1,0,3,7,5,2,6,4,9,10,11,8}; // Professor 2
 		//int[] initialState={1,2,3,4,5,6,7,8,9,10,11,0};
 		//1 0 3 7 5 2 6 4 9 10 11 8
 		//1 0 3 7 5 2 6 4 9 10 11 8
 		System.out.println("HELELE");
-		Board board=new Board(initialState);
+		Board board=new Board(goalState,initialState);
 		DFS dfs=new DFS(board);
         dfs.go1();
         //dfs.realDFS();
