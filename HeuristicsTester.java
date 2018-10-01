@@ -18,7 +18,8 @@ public class HeuristicsTester {
 		
 		//sumOfPermutationInversiontestFor11puzzzleRT();
 		//manhattanTestFor8Puzzle();
-		manhattanTestFor11Puzzle();
+		//manhattanTestFor11Puzzle();
+		comparingMD_WITH_CD();
 		long endTime=System.currentTimeMillis();
 		System.out.println("Total Time Taken " +(endTime-startTime));
 	}
@@ -200,6 +201,20 @@ public class HeuristicsTester {
 		System.out.println(output1);
 		System.out.println(output2);
 		
+	}
+	
+	public static void comparingMD_WITH_CD()
+	{
+		int[] goalState = {1,2,3,4,5,6,7,8,9,10,11,0};
+		int[] state={1, 0, 3, 7, 5, 2, 6, 4, 9, 10, 11, 8};
+		Heuristics.setGoalState(goalState);
+		Heuristics.noOfColumns=4;
+		int output1=Heuristics.manhattanDistance(state);
+		System.out.println(output1);
+		output1=Heuristics.chebyShevDistance(state);
+		System.out.println(output1);
+		output1=Heuristics.chebyShevDistanceV2(state);
+		System.out.println(output1);
 	}
 
 }

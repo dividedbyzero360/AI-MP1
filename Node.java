@@ -19,7 +19,22 @@ public class Node {
 		this.depthOfNode=depthOfNode;
 	}
 	
+	public void setDepthOfNode(int depthOfNode)
+	{
+		this.depthOfNode=depthOfNode;
+	}
+	
+	public int getDepthOfNode()
+	{
+		return depthOfNode;
+	}
+	
 	public int getHeristicsValue()
+	{
+		return Heuristics.getHerirsticValue(this.getState());
+	}
+	
+	public int getHeristicsValuePlusDepth()
 	{
 		return Heuristics.getHerirsticValue(this.getState())+depthOfNode;
 	}

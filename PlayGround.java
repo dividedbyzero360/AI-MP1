@@ -12,8 +12,8 @@ public class PlayGround {
 		//1 0 3 7 5 2 6 4 9 10 11 8
 		Board board=new Board(goalState,initialState,BlankTileMovementDirection.CLOCKWISE_STARTING_FROM_UP);
 		Heuristics.setGoalState(goalState);
-		Heuristics.setWhichHeristics(HeuristicsType.SUM_OF_PI);
-		BestFirstSearch bfs=new BestFirstSearch(board);
+		Heuristics.setWhichHeristics(HeuristicsType.MisplacedTiles);
+		BestFirstSearch bfs=new BestFirstSearch(board,TypeOfEvaluationFuntion.DONOT_CONSIDER_DEPTH);
 		bfs.go();
 		//DFS dfs=new DFS(board);
         //dfs.go1();

@@ -9,9 +9,19 @@ public class BestFirstSearch {
 	PriorityQueue<Node> queue=null;
 	HashSet<String> alreadyKnownChildren = new HashSet<String>();
 	
-	public BestFirstSearch(Board board) {
+	public BestFirstSearch(Board board, TypeOfEvaluationFuntion ev) {
 		this.board = board;
-		this.queue=new PriorityQueue<>(new NodeComparator(Board.getBlankTileMovementDirection()));
+		Comparators comparator=new Comparators(Board.getBlankTileMovementDirection());
+		if(ev==TypeOfEvaluationFuntion.DONOT_CONSIDER_DEPTH)
+		{
+//			this.queue=new PriorityQueue<>(new NodeComparator(Board.getBlankTileMovementDirection()));	
+			this.queue=new PriorityQueue<>(Comparators.getJustHeuristicsComparator());	
+		}
+		else if(ev==TypeOfEvaluationFuntion.CONSIDER_DEPTH)
+		{
+			this.queue=new PriorityQueue<>(Comparators.getJustHeuristicsPlusDepthComparator());
+		}
+		
 	}
 
 	

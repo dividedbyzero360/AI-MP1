@@ -24,6 +24,7 @@ public class Board {
 		Node root=new Node();
 		root.setState(initialState);
 		root.setTileConfig();
+		root.setDepthOfNode(0);
 		return root;
 	}
 	
@@ -50,10 +51,11 @@ public class Board {
 			throw new RuntimeException("No blank title. How is this even possible?");
 		}
 		//Generate UP
+		int parentNodeDepth=currentState.getDepthOfNode();
 		if(indexOfBlankTitle-4>=0)
 		{
 			//System.out.println("UP");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-4));
 			child.setTileConfig(indexOfBlankTitle-4);
 			child.setParent(currentState);
@@ -64,7 +66,7 @@ public class Board {
 		if(indexOfBlankTitle!=7 && indexOfBlankTitle!=11 &&  indexOfBlankTitle-3 >0 )
 		{
 			//System.out.println("UP –RIGHT");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-3));
 			child.setTileConfig(indexOfBlankTitle-3);
 			child.setParent(currentState);
@@ -75,7 +77,7 @@ public class Board {
 		if(indexOfBlankTitle!=3 && indexOfBlankTitle!=7 && indexOfBlankTitle!=11 )
 		{
 			//System.out.println("RIGHT");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+1));
 			child.setTileConfig(indexOfBlankTitle+1);
 			child.setParent(currentState);
@@ -85,7 +87,7 @@ public class Board {
 		//Generate DOWN- RIGHT
 		if(indexOfBlankTitle!=3 && indexOfBlankTitle!=7 && indexOfBlankTitle+5 < cs.length){
 			//System.out.println("DOWN- RIGHT");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+5));
 			child.setTileConfig(indexOfBlankTitle+5);
 			child.setParent(currentState);
@@ -96,7 +98,7 @@ public class Board {
 		if(indexOfBlankTitle+4 < cs.length)
 		{
 			//System.out.println("DOWN");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+4));
 			child.setTileConfig(indexOfBlankTitle+4);
 			child.setParent(currentState);
@@ -107,7 +109,7 @@ public class Board {
 		if(indexOfBlankTitle!=0 && indexOfBlankTitle!=4 && indexOfBlankTitle!=8 && indexOfBlankTitle+3 < cs.length)
 		{
 			//System.out.println("DOWN –LEFT");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle+3));
 			child.setTileConfig(indexOfBlankTitle+3);
 			child.setParent(currentState);
@@ -119,7 +121,7 @@ public class Board {
 		if(indexOfBlankTitle!=0 && indexOfBlankTitle!=4 && indexOfBlankTitle!=8)
 		{
 			//System.out.println("LEFT");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-1));
 			child.setTileConfig(indexOfBlankTitle-1);
 			child.setParent(currentState);
@@ -130,7 +132,7 @@ public class Board {
 		if(indexOfBlankTitle!=4 && indexOfBlankTitle!=8 &&  indexOfBlankTitle-5 >0 )
 		{
 			//System.out.println("UP–LEFT");
-			Node child=new Node();
+			Node child=new Node(parentNodeDepth+1);
 			child.setState(swap(cs,indexOfBlankTitle,indexOfBlankTitle-5));
 			child.setTileConfig(indexOfBlankTitle-5);
 			child.setParent(currentState);
