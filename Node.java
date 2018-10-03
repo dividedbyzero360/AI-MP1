@@ -1,6 +1,31 @@
 
 public class Node {
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((code == null) ? 0 : code.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Node other = (Node) obj;
+		if (code == null) {
+			if (other.code != null)
+				return false;
+		} else if (!code.equals(other.code))
+			return false;
+		return true;
+	}
+
 	private String titleConfig;
 	private char[] config={'a','b','c','d','e','f','g','h','i','j','k','l'};
 	private Node parentNode;
@@ -10,6 +35,7 @@ public class Node {
 	private int depthOfNode; 
 	private boolean cached=false;
     private int heristicsValuePlusDepth;
+    private String code=null;
 	
 	public Node()
 	{
@@ -59,6 +85,7 @@ public class Node {
 	public void setState(int[] state)
 	{
 		this.state=state;
+		getCode();
 	}
 	
 	public int[] getState()
@@ -93,14 +120,17 @@ public class Node {
 	}
 	
 	public String getCode(){
-		StringBuilder sb=new StringBuilder();
-		//String s="";
-		for(int i=0;i<state.length;i++)
+		if(code==null)
 		{
-			//ss+=state[i]+"";
-			sb.append(state[i]+"");
+			StringBuilder sb=new StringBuilder();
+			for(int i=0;i<state.length;i++)
+			{
+				sb.append(state[i]+"");
+			}
+			code=sb.toString();
+			return code;
 		}
-		return sb.toString();
+		return code;
 	}
 	
 	public String getPrintableInfo()
@@ -110,11 +140,9 @@ public class Node {
 			return printableCode;
 		}
 		StringBuilder sb=new StringBuilder();
-		//String result=titleConfig + "[";
 		sb.append(titleConfig + "[");
 		for(int i=0;i<state.length;i++)
 		{
-			//result+=state[i]+", ";
 			sb.append(state[i]+", ");
 		}
 		String result=sb.toString();
@@ -125,17 +153,11 @@ public class Node {
 	}
 	
 	
-	@Override
-	public boolean equals(Object obj) {
-		// TODO Auto-generated method stub
-		if (obj == this) { 
-            return true; 
-        } 
-		Node t= (Node)obj;
-		return t.getCode().equals(this.getCode());
-	}
 	
 	
+	
+
+
 	public void setMovement(int pirority,String direction)
 	{
 		this.direction.setDirectionName(direction);

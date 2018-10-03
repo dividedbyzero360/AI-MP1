@@ -13,7 +13,7 @@ public class PlayGround {
 		//int[] initialState={1,2,3,4,5,6,0,8,9,10,11,7};
 		Board board=new Board(goalState,initialState,BlankTileMovementDirection.CLOCKWISE_STARTING_FROM_UP);
 		Heuristics.setGoalState(goalState);
-		Heuristics.setWhichHeristics(HeuristicsType.Cheby_Shev_Distance);
+		Heuristics.setWhichHeristics(HeuristicsType.MANHATTAN_DISTANCE);
 //		BestFirstSearch bfs=new BestFirstSearch(board,TypeOfEvaluationFuntion.DONOT_CONSIDER_DEPTH);
 //		bfs.realBfs1();
 		//DFS dfs=new DFS(board);
