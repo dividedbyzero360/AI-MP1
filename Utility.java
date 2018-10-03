@@ -41,6 +41,7 @@ public class Utility {
 			
 		}
 		System.out.println("\n");
+		
 	}
 	
 	public static final void writeGoalTraceToFile(Node goalNode)

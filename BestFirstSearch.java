@@ -11,7 +11,7 @@ public class BestFirstSearch {
 	
 	public BestFirstSearch(Board board, TypeOfEvaluationFuntion ev) {
 		this.board = board;
-		Comparators comparator=new Comparators(Board.getBlankTileMovementDirection());
+		new Comparators(Board.getBlankTileMovementDirection());
 		if(ev==TypeOfEvaluationFuntion.DONOT_CONSIDER_DEPTH)
 		{
 //			this.queue=new PriorityQueue<>(new NodeComparator(Board.getBlankTileMovementDirection()));	
@@ -35,9 +35,19 @@ public class BestFirstSearch {
 		queue.add(board.getInitialStateNode());
 		Utility.printMatrix(board.getInitialStateNode().getState());
 		alreadyKnownChildren.add(board.getInitialStateNode().getCode());
+		//int x=0;
 		while (!queue.isEmpty()) {
+			//x++;
 			Node temp=queue.poll();
 //			System.out.println("The node that comes out from priority queue is");
+//			if(x==10)
+//			{
+//				return;
+//			}
+//			if(temp.getParent()!=null)
+//			{
+//				Utility.printMatrix(temp.getParent().getState(),temp.getParent().getMovement().getDirectionName(),temp.getParent().getHeristicsValue());
+//			}
 //			Utility.printMatrix(temp.getState(),temp.getMovement().getDirectionName(),temp.getHeristicsValue());
 //			System.out.println("--------------------------------------------------------------");
 			if (Board.isCurrentStateGoalState(temp.getState())) {
@@ -76,5 +86,51 @@ public class BestFirstSearch {
 			}
 		}
 		
+	}
+	
+	
+	public void realBfs() {
+		queue.add(board.getInitialStateNode());
+		Utility.printMatrix(board.getInitialStateNode().getState());
+		alreadyKnownChildren.add(board.getInitialStateNode().getCode());
+		while (!queue.isEmpty()) {
+			Node temp = queue.poll();
+			if (Board.isCurrentStateGoalState(temp.getState())) {
+				System.out.println("Got goal State");
+				goalNode = temp;
+				return;
+			}
+			ArrayList<Node> children = board.generateChildren(temp);
+			for (int i = 0; i < children.size(); i++) {
+				Node t = children.get(i);
+				if (!alreadyKnownChildren.contains(t.getCode())) {
+					queue.add(t);
+					alreadyKnownChildren.add(t.getCode());
+				}
+			}
+		}
+
+	}
+	
+	
+	public void realBfs1() {
+		queue.add(board.getInitialStateNode());
+		while (!queue.isEmpty()) {
+			Node temp = queue.poll();
+			if (Board.isCurrentStateGoalState(temp.getState())) {
+				System.out.println("Got goal State");
+				goalNode = temp;
+				return;
+			}
+			alreadyKnownChildren.add(temp.getCode());
+			ArrayList<Node> children = board.generateChildren(temp);
+			for (int i = 0; i < children.size(); i++) {
+				Node t = children.get(i);
+				if (!alreadyKnownChildren.contains(t.getCode()) && !queue.contains(t)) {
+					queue.add(t);
+				}
+			}
+		}
+
 	}
 }

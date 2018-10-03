@@ -81,7 +81,7 @@ public class DFS {
 			ArrayList<Node> children = board.generateChildren(temp);
 			for (int i =  children.size()-1; i >=0; i--) {
 				Node t = children.get(i);
-				if(!alreadyKnownChildren.contains(t.getCode()))
+				if(!alreadyKnownChildren.contains(t.getCode()) && !toVisitChildren.contains(t))
 				{
 					toVisitChildren.push(t);
 				}

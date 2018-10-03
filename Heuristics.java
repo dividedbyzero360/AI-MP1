@@ -25,8 +25,12 @@ public class Heuristics {
 			return Heuristics.numberOfMisplacedTitlesSlow(state);
 		} else if (whichHeristics == HeuristicsType.SUM_OF_PI) {
 			return Heuristics.sumPermutationInversionSlow(state);
+		} else if (whichHeristics == HeuristicsType.SUM_OF_PI_WITH_SOLVABILITY_TEST) {
+			return Heuristics.sumPermutationInversionSlowWithCheckForUnSolvability(state);
 		} else if (whichHeristics == HeuristicsType.MANHATTAN_DISTANCE) {
 			return Heuristics.manhattanDistance(state);
+		} else if (whichHeristics == HeuristicsType.Euclidian_Distance) {
+			return Heuristics.euclideanDistance(state);
 		} else if (whichHeristics == HeuristicsType.Cheby_Shev_Distance) {
 			return Heuristics.chebyShevDistance(state);
 		} else
@@ -77,6 +81,74 @@ public class Heuristics {
 			}
 		}
 		return sumOfPerInv;
+	}
+	
+	// h2
+	//Does not work when diagonal moves are allowed
+	public static final int sumPermutationInversionSlowWithCheckForUnSolvability(int[] state) {
+		if (!cached) {
+			System.out.println("Runs once only");
+			int goalStateLength = goalState.length;
+			for (int i = goalStateLength - 1; i >= 0; i--) {
+				if (goalState[i] != 0) {
+					numbersThatFollowANumberInGoalState.put(goalState[i], new ArrayList<Integer>());
+					for (int j = i - 1; j >= 0; j--) {
+						if (goalState[j] != 0) {
+							numbersThatFollowANumberInGoalState.get(goalState[i]).add(goalState[j]);
+						}
+					}
+
+				}
+			}
+			cached = true;
+		}
+		int sumOfPerInv = 0;
+		//TODO check if the state is solvable or not
+		int indexOfBlankTitleInState=-1;
+		for (int i = 0; i < state.length - 1; i++) {
+			if (state[i] != 0) {
+				ArrayList<Integer> shouldBeOnItsLeft = numbersThatFollowANumberInGoalState.get(state[i]);
+				int count = 0;
+				for (int j = i + 1; j < state.length; j++) {
+					if (shouldBeOnItsLeft.contains(state[j])) {
+						count++;
+					}
+				}
+				sumOfPerInv += count;
+			}
+			else
+			{
+				indexOfBlankTitleInState=i;
+			}
+		}
+		//If the width is odd, then every solvable state has an even number of inversions.
+		if(noOfColumns%2!=0 && sumOfPerInv%2!=0)
+		{
+			return 100000;
+		}
+		//If the width is even, then every solvable state has
+		else if(noOfColumns%2==0)
+		{
+			
+			int d=getRowCountFromBottom(indexOfBlankTitleInState,state.length);
+			if( (d%2!=0 && sumOfPerInv%2!=0) || (d%2==0 && sumOfPerInv%2==0) )
+			{
+				//System.out.println("HERE d=" +d + " sumOfPerInv "+sumOfPerInv);
+				//return 100000;
+				Utility.printMatrix(state);
+				System.out.println("sumOfPerInv "+sumOfPerInv + " row no from bottom "+d);
+				throw new RuntimeException("HERE IS THE UNSOLVABLE STATE");
+			}
+		}
+		
+		return sumOfPerInv;
+	}
+	
+	public static final int getRowCountFromBottom(int indexOfBlankTitleInState, int noOfElementsInState)
+	{
+		int rowOfBlankInState = indexOfBlankTitleInState / noOfColumns;
+		int noOfRowsInTheRecord=noOfElementsInState/noOfColumns;
+		return noOfRowsInTheRecord-rowOfBlankInState;
 	}
 
 	// h3 Manhattan_Distance is not admissible, when diagonal steps are allowed,

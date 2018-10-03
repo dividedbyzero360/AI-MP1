@@ -8,6 +8,8 @@ public class Node {
 	private String printableCode=null;
 	private Direction direction=new Direction();
 	private int depthOfNode; 
+	private boolean cached=false;
+    private int heristicsValuePlusDepth;
 	
 	public Node()
 	{
@@ -34,10 +36,25 @@ public class Node {
 		return Heuristics.getHerirsticValue(this.getState());
 	}
 	
+	
+	//TODO: Performance enhancement
 	public int getHeristicsValuePlusDepth()
 	{
-		return Heuristics.getHerirsticValue(this.getState())+depthOfNode;
+		if(!cached)
+		{
+			cached=true;
+//			System.out.println(depthOfNode);
+			heristicsValuePlusDepth= Heuristics.getHerirsticValue(this.getState())+depthOfNode;
+			return heristicsValuePlusDepth;
+		}
+		else
+		{
+//			System.out.println(depthOfNode);
+			return heristicsValuePlusDepth;
+		}
+		
 	}
+	
 	
 	public void setState(int[] state)
 	{
@@ -107,7 +124,17 @@ public class Node {
 		return result;
 	}
 	
-
+	
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		if (obj == this) { 
+            return true; 
+        } 
+		Node t= (Node)obj;
+		return t.getCode().equals(this.getCode());
+	}
+	
 	
 	public void setMovement(int pirority,String direction)
 	{
