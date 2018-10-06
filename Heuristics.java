@@ -4,12 +4,15 @@ public class Heuristics {
 
 	private static int[] goalState;
 
+	private static int cachedHeuristicValue=0;
 	private static boolean cached = false;
+	private static boolean  cachedLinearConflict= false;
 	private static HashMap<Integer, ArrayList<Integer>> numbersThatFollowANumberInGoalState = new HashMap<Integer, ArrayList<Integer>>();
 	private static HeuristicsType whichHeristics;
 	private static HashMap<Integer, Integer> mapOfTitleNumberToIndex = new HashMap<>();
 	public static int noOfColumns = 4;
-
+	private static  HashMap<Integer,int[]> rowNumberWithRowItems=new HashMap<Integer,int[]>();
+	private static HashMap<Integer,int[]> columnNumberWithColumnItems=new HashMap<Integer,int[]>();
 	public static final void setGoalState(int[] goalState) {
 		Heuristics.cached = false;
 		Heuristics.goalState = goalState;
@@ -19,22 +22,39 @@ public class Heuristics {
 		Heuristics.whichHeristics = whichHeristics;
 		Heuristics.cached = false;
 	}
+	
+	public static final int getCalculatedHeuristicValue(){
+		return cachedHeuristicValue;
+	}
 
 	public static final int getHerirsticValue(int[] state) {
 		if (whichHeristics == HeuristicsType.MisplacedTiles) {
-			return Heuristics.numberOfMisplacedTitlesSlow(state);
+			cachedHeuristicValue=Heuristics.numberOfMisplacedTitlesSlow(state);
+			return cachedHeuristicValue;
 		} else if (whichHeristics == HeuristicsType.SUM_OF_PI) {
-			return Heuristics.sumPermutationInversionSlow(state);
+			cachedHeuristicValue= Heuristics.sumPermutationInversionSlow(state);
+			return cachedHeuristicValue;
 		} else if (whichHeristics == HeuristicsType.SUM_OF_PI_WITH_SOLVABILITY_TEST) {
-			return Heuristics.sumPermutationInversionSlowWithCheckForUnSolvability(state);
+			cachedHeuristicValue= Heuristics.sumPermutationInversionSlowWithCheckForUnSolvability(state);
+			return cachedHeuristicValue;
 		} else if (whichHeristics == HeuristicsType.MANHATTAN_DISTANCE) {
-			return Heuristics.manhattanDistance(state);
+			cachedHeuristicValue= Heuristics.manhattanDistance(state);
+			return cachedHeuristicValue;
 		} else if (whichHeristics == HeuristicsType.Euclidian_Distance) {
-			return Heuristics.euclideanDistance(state);
+			cachedHeuristicValue= Heuristics.euclideanDistance(state);
+			return cachedHeuristicValue;
 		} else if (whichHeristics == HeuristicsType.Cheby_Shev_Distance) {
-			return Heuristics.chebyShevDistance(state);
-		} else
-			return Heuristics.chebyShevDistanceV2(state);
+			cachedHeuristicValue= Heuristics.chebyShevDistance(state);
+			return cachedHeuristicValue;
+		} 
+		else if(whichHeristics==HeuristicsType.Linear_Conflict)
+		{
+			cachedHeuristicValue= Heuristics.manhattanDistance(state)+Heuristics.linearConflict(state);
+			return cachedHeuristicValue;
+		}
+		else
+			cachedHeuristicValue= Heuristics.chebyShevDistanceV2(state);
+		   return cachedHeuristicValue;
 
 	}
 
@@ -264,6 +284,76 @@ public class Heuristics {
 		}
 		return ecd;
 		
+	}
+	
+	public static final int linearConflict(int[] state)
+	{
+		
+		int lc = 0;
+		if (!cachedLinearConflict) {
+			
+			for(int i=0; i< state.length/noOfColumns;i++)
+			{
+				int[] rowOfGoal =getRowtuple(i,goalState);
+				rowNumberWithRowItems.put(i, rowOfGoal);
+			}
+			for(int j=0;j<noOfColumns;j++)
+			{
+				int[] columnOfGoal =getColumntuple(j,state.length/noOfColumns,goalState);
+				columnNumberWithColumnItems.put(j,columnOfGoal);
+			}
+			cachedLinearConflict=true;
+		}
+		for(int i=0; i< state.length/noOfColumns;i++)
+		{
+			int[] rowOfState =getRowtuple(i,state);
+			//int[] rowOfGoal =getRowtuple(i,goalState);
+			lc+=inversions(rowOfState,rowNumberWithRowItems.get(i),noOfColumns);
+		}
+		
+		for(int j=0;j<noOfColumns;j++)
+		{
+			int[] columnOfState =getColumntuple(j,state.length/noOfColumns,state);
+			//int[] columnOfGoal =getColumntuple(j,state.length/noOfColumns,goalState);
+			//lc+=inversions(columnOfState,columnOfGoal,state.length/noOfColumns);
+			lc+=inversions(columnOfState,columnNumberWithColumnItems.get(j),state.length/noOfColumns);
+		}
+		return lc;
+		
+	}
+	
+	public static int inversions(int[] statePart, int[] goalPart,int count)
+	{
+		int inversions = 0;
+		for (int i = 1, iPos; i < count; i++) {
+            if (statePart[i] != 0 && 0 <= (iPos = Arrays.binarySearch(goalPart, statePart[i]))) {
+                for (int j = 0, jPos; j < i; j++) {
+                    if (statePart[j] != 0 && 0 <= (jPos = Arrays.binarySearch(goalPart, statePart[j]))) {
+                        if ((statePart[i] < statePart[j]) != (i < j)) {
+                            inversions++;
+                        }
+                    }
+                }
+            }
+        }
+        return inversions;
+	}
+	
+	private static int[] getRowtuple(int rowIndex,int[] state)
+	{
+		int[] result=new int[noOfColumns];
+		
+			System.arraycopy(state, rowIndex*noOfColumns, result, 0, noOfColumns);
+			return result;
+	}
+	
+	private static int[] getColumntuple(int columnIndex,int noOfRows,int[] state)
+	{
+		int[] result=new int[noOfRows];
+		for (int i = 0, j = columnIndex; i < noOfRows; i++, j += noOfColumns) {
+            result[i] = state[j];
+        }
+		return result;
 	}
 
 }

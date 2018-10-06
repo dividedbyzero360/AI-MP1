@@ -47,6 +47,7 @@ public class IterativeDeepingDFS {
 					}
 				}
 			}
+			System.out.println(depth);
 			depth++;
 			toVisitChildren.clear();
 			alreadyKnownChildren.clear();
@@ -57,6 +58,7 @@ public class IterativeDeepingDFS {
 	public void iterativeDeepingDFS()
 	{
 		int depth=0;
+		ArrayList<Node> toExploreNodes=new ArrayList<>();
 		while(true)
 		{
 			toVisitChildren.push(board.getInitialStateNode());
@@ -85,13 +87,15 @@ public class IterativeDeepingDFS {
 							return;
 							
 						}
-						if(!alreadyKnownChildren.contains(t.getCode()) && !toVisitChildren.contains(t))
+						if(!alreadyKnownChildren.contains(t.getCode()))
 						{
 							toVisitChildren.push(t);
+							alreadyKnownChildren.add(t.getCode());
 						}
 					}
 				}
 			}
+			System.out.println(depth);
 			depth++;
 			toVisitChildren.clear();
 			alreadyKnownChildren.clear();

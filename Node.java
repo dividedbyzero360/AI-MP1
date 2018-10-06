@@ -73,13 +73,21 @@ public class Node {
 		if(!cached)
 		{
 			cached=true;
-//			System.out.println(depthOfNode);
 			heristicsValuePlusDepth= Heuristics.getHerirsticValue(this.getState())+depthOfNode;
+//			if(parentNode!=null)
+//			{
+//				heristicsValuePlusDepth=Math.max(parentNode.getHeristicsValuePlusDepth(), heristicsValuePlusDepth);
+//			}
+				
 			return heristicsValuePlusDepth;
 		}
 		else
 		{
 //			System.out.println(depthOfNode);
+//			if(parentNode!=null)
+//			{
+//				heristicsValuePlusDepth=Math.max(parentNode.getHeristicsValuePlusDepth(), heristicsValuePlusDepth);
+//			}
 			return heristicsValuePlusDepth;
 		}
 		
@@ -156,12 +164,6 @@ public class Node {
 		return result;
 	}
 	
-	
-	
-	
-	
-
-
 	public void setMovement(int pirority,String direction)
 	{
 		this.direction.setDirectionName(direction);
@@ -173,22 +175,6 @@ public class Node {
 		return this.direction;
 	}
 	
-//	public String getPrintableInfo()
-//	{
-//		if(printableCode!=null)
-//		{
-//			return printableCode;
-//		}
-//		String result="";
-//		for(int i=0;i<state.length;i++)
-//		{
-//			result+=state[i]+" ";
-//		}
-//		//result=result.substring(0, result.length()-2);
-//		//result+="]";
-//		printableCode=result;
-//		return result;
-//	}
 }
 
 class Direction
