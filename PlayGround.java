@@ -4,8 +4,8 @@ public class PlayGround {
 
 	public static void main(String[] args) throws Exception {
 		int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};
-		//int[] initialState={1,2,6,4,5,9,7,3,0,10,11,8}; // Professor
-		int[] initialState={0,11,9,10,8,7,6,5,4,3,2,1};
+		 int[] initialState={1,2,6,4,5,9,7,3,0,10,11,8}; // Professor
+		//int[] initialState={0,11,10,9,8,7,6,5,4,3,2,1};
 		//int[] initialState={1,0,3,7,5,2,6,4,9,10,11,8}; // Professor 2
 		 //int[] initialState={1,2,6,4,0,9,7,3,5,10,11,8}; 
 		//1 0 3 7 5 2 6 4 9 10 11 8
@@ -20,9 +20,11 @@ public class PlayGround {
         //dfs.go1();
 //        //dfs.realDFS();
 		
-		AStar aStar=new AStar(board);
-		aStar.realAstar();
-        Utility.writeGoalTraceToFile(aStar.getGoalNode());
+//		AStar aStar=new AStar(board);
+//		aStar.realAstar();
+		IterativeDeepingDFS idfs=new IterativeDeepingDFS(board);
+		idfs.realIterativeDeepingDFS();
+        Utility.writeGoalTraceToFile(idfs.getGoalNode());
 	}
 
 }

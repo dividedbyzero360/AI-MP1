@@ -95,6 +95,16 @@ public class AStar {
 			ArrayList<Node> children = board.generateChildren(temp);
 			for (int i = 0; i < children.size(); i++) {
 				Node t = children.get(i);
+				if(Board.isCurrentStateGoalState(t.getState()))
+				{
+					
+					System.out.println("Got goal State at children nodes");
+					System.out.println("This is the goal state");
+					System.out.println(t.getPrintableInfo() +  " "+ t.getMovement());
+					goalNode = t;
+					return;
+					
+				}
 				if (!alreadyKnownChildren.contains(t.getCode()) ) {
 					if(queue.contains(t))
 					{
@@ -115,6 +125,12 @@ public class AStar {
 						if(c.getHeristicsValuePlusDepth() > t.getHeristicsValuePlusDepth())
 						{
    						System.out.println(c.getHeristicsValuePlusDepth() + " " +t.getHeristicsValuePlusDepth());
+//   						try{
+//   							Thread.sleep(2000);	
+//   						}catch(Exception ex){
+//   							
+//   						}
+   						
 //							Utility.printMatrix(c.getState());
 //							Utility.printMatrix(t.getState());
 							boolean removed= queue.remove(c);

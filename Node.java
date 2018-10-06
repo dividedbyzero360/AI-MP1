@@ -18,6 +18,10 @@ public class Node {
 		if (getClass() != obj.getClass())
 			return false;
 		Node other = (Node) obj;
+		if(this.getCode().equals(other.getCode()))
+		{
+			return true;
+		}
 		if (code == null) {
 			if (other.code != null)
 				return false;
