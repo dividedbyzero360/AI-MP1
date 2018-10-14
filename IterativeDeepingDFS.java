@@ -2,12 +2,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Stack;
 
-public class IterativeDeepingDFS {
+public class IterativeDeepingDFS implements Algo{
 	private Board board;
 	HashSet<String> alreadyKnownChildren = new HashSet<String>();
 	Stack<Node> toVisitChildren = new Stack<Node>();
 	private Node goalNode = null;
-    private static final BlankTileMovementDirection movementPriority=Board.getBlankTileMovementDirection();
+	private int numberOfStatesExplored=0;
 	public IterativeDeepingDFS(Board board) {
 		this.board = board;
 		
@@ -18,6 +18,13 @@ public class IterativeDeepingDFS {
 		return goalNode;
 	}
 	
+	public void run() {
+		realIterativeDeepingDFS();
+	}
+	public int getNumberOfStatesExplored()
+	{
+		return numberOfStatesExplored;
+	}
 	
 	public void realIterativeDeepingDFS()
 	{
@@ -27,6 +34,7 @@ public class IterativeDeepingDFS {
 			toVisitChildren.push(board.getInitialStateNode());
 			while (!toVisitChildren.isEmpty())
 			{
+				numberOfStatesExplored++;
 				Node temp = toVisitChildren.pop();
 				if(Board.isCurrentStateGoalState(temp.getState()))
 				{
@@ -47,7 +55,7 @@ public class IterativeDeepingDFS {
 					}
 				}
 			}
-			System.out.println(depth);
+			//System.out.println(depth);
 			depth++;
 			toVisitChildren.clear();
 			alreadyKnownChildren.clear();
@@ -58,7 +66,6 @@ public class IterativeDeepingDFS {
 	public void iterativeDeepingDFS()
 	{
 		int depth=0;
-		ArrayList<Node> toExploreNodes=new ArrayList<>();
 		while(true)
 		{
 			toVisitChildren.push(board.getInitialStateNode());

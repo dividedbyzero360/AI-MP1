@@ -2,14 +2,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.PriorityQueue;
 
-public class BestFirstSearch {
+public class BestFirstSearch implements Algo{
 	
 	private Board board;
 	private Node goalNode = null;
 	PriorityQueue<Node> queue=null;
 	HashSet<String> alreadyKnownChildren = new HashSet<String>();
-	
-	public BestFirstSearch(Board board, TypeOfEvaluationFuntion ev) {
+	private boolean childCheckAlgo=false;
+	private int numberOfStatesExplored=0;
+	public BestFirstSearch(Board board, TypeOfEvaluationFuntion ev, boolean childCheckAlgo) {
 		this.board = board;
 		new Comparators(Board.getBlankTileMovementDirection());
 		if(ev==TypeOfEvaluationFuntion.DONOT_CONSIDER_DEPTH)
@@ -21,12 +22,26 @@ public class BestFirstSearch {
 		{
 			this.queue=new PriorityQueue<>(Comparators.getJustHeuristicsPlusDepthComparator());
 		}
-		
+		this.childCheckAlgo=childCheckAlgo;
 	}
 
 	
 	public Node getGoalNode(){
 		return goalNode;
+	}
+	
+	public void run() {
+		if(!childCheckAlgo)
+		{
+			realBfs1();	
+		}else{
+			go();
+		}
+		
+	}
+	public int getNumberOfStatesExplored()
+	{
+		return numberOfStatesExplored;
 	}
 	
 	
@@ -37,6 +52,7 @@ public class BestFirstSearch {
 		alreadyKnownChildren.add(board.getInitialStateNode().getCode());
 		//int x=0;
 		while (!queue.isEmpty()) {
+			numberOfStatesExplored++;
 			//x++;
 			Node temp=queue.poll();
 //			System.out.println("The node that comes out from priority queue is");
@@ -94,6 +110,7 @@ public class BestFirstSearch {
 		Utility.printMatrix(board.getInitialStateNode().getState());
 		alreadyKnownChildren.add(board.getInitialStateNode().getCode());
 		while (!queue.isEmpty()) {
+			numberOfStatesExplored++;
 			Node temp = queue.poll();
 			if (Board.isCurrentStateGoalState(temp.getState())) {
 				System.out.println("Got goal State");
@@ -116,6 +133,7 @@ public class BestFirstSearch {
 	public void realBfs1() {
 		queue.add(board.getInitialStateNode());
 		while (!queue.isEmpty()) {
+			numberOfStatesExplored++;
 			Node temp = queue.poll();
 			if (Board.isCurrentStateGoalState(temp.getState())) {
 				System.out.println("Got goal State");

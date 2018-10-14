@@ -3,15 +3,17 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Stack;
 
-public class DFS {
+public class DFS implements Algo  {
 	private Board board;
 	HashSet<String> alreadyKnownChildren = new HashSet<String>();
 	Stack<Node> toVisitChildren = new Stack<Node>();
 	private Node goalNode = null;
     private static final BlankTileMovementDirection movementPriority=Board.getBlankTileMovementDirection();
-	public DFS(Board board) {
+	private boolean childCheckAlgo = false;
+	private int numberOfStatesExplored=0;
+	public DFS(Board board, boolean childCheckAlgo) {
 		this.board = board;
-		
+		this.childCheckAlgo=childCheckAlgo;
 	}
 
 	
@@ -19,6 +21,16 @@ public class DFS {
 		return goalNode;
 	}
 	
+public void run() {
+	if(!childCheckAlgo)
+	{
+		realDFS();
+	}
+	else
+	{
+		go1();
+	}
+}
 	
 	//For now correct version
 	
@@ -26,9 +38,8 @@ public class DFS {
 		toVisitChildren.push(board.getInitialStateNode());
 		alreadyKnownChildren.add(board.getInitialStateNode().getCode());
 		
-		int n=0;
 		while (!toVisitChildren.isEmpty()) {
-			n++;
+			numberOfStatesExplored++;
 			Node temp = toVisitChildren.pop();
 			//System.out.println(temp.getPrintableInfo());
 			if (Board.isCurrentStateGoalState(temp.getState())) {
@@ -37,10 +48,10 @@ public class DFS {
 				return;
 			}
 			ArrayList<Node> children = board.generateChildren(temp);
-			if(movementPriority==BlankTileMovementDirection.ANTICLOCKWISE_STARTING_FROM_UPLEFT)
-			{
-				Collections.reverse(children);
-			}
+//			if(movementPriority==BlankTileMovementDirection.ANTICLOCKWISE_STARTING_FROM_UPLEFT)
+//			{
+//				Collections.reverse(children);
+//			}
 			for (int i =  children.size()-1; i >=0; i--) {
 				Node t = children.get(i);
 				
@@ -61,7 +72,7 @@ public class DFS {
 			}
 
 		}
-		System.out.println(n);
+		//System.out.println(n);
 
 	}
 	
@@ -70,6 +81,7 @@ public class DFS {
 		toVisitChildren.push(board.getInitialStateNode());
 		while (!toVisitChildren.isEmpty())
 		{
+			numberOfStatesExplored++;
 			Node temp = toVisitChildren.pop();
 			if(Board.isCurrentStateGoalState(temp.getState()))
 			{
@@ -89,6 +101,11 @@ public class DFS {
 			
 		}
 		
+	}
+	
+	public int getNumberOfStatesExplored()
+	{
+		return numberOfStatesExplored;
 	}
 	
 }
