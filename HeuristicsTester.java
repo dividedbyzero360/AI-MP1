@@ -19,8 +19,8 @@ public class HeuristicsTester {
 		//sumOfPermutationInversiontestFor11puzzzleRT();
 		//manhattanTestFor8Puzzle();
 		//manhattanTestFor11Puzzle();
-		//comparingMD_WITH_CD();
-		getRowCountFromBottomTest();
+		comparingMD_WITH_CD();
+		//getRowCountFromBottomTest();
 		long endTime=System.currentTimeMillis();
 		System.out.println("Total Time Taken " +(endTime-startTime));
 	}
@@ -214,8 +214,8 @@ public class HeuristicsTester {
 		System.out.println(output1);
 		output1=Heuristics.chebyShevDistance(state);
 		System.out.println(output1);
-		output1=Heuristics.chebyShevDistanceV2(state);
-		System.out.println(output1);
+//		output1=Heuristics.chebyShevDistanceV2(state);
+//		System.out.println(output1);
 	}
 	
 	public static void getRowCountFromBottomTest()
@@ -223,8 +223,8 @@ public class HeuristicsTester {
 		int numberOfElements=16;
 		int indexOfBlankTile=2;
 		Heuristics.noOfColumns=4;
-		int output1=Heuristics.getRowCountFromBottom(indexOfBlankTile, numberOfElements);
-		System.out.println(output1);
+//		int output1=Heuristics.getRowCountFromBottom(indexOfBlankTile, numberOfElements);
+//		System.out.println(output1);
 		
 		
 	}

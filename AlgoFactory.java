@@ -18,22 +18,22 @@ public class AlgoFactory {
 		else if(i==3)
 		{
 			algoName=AlgorithmName.BFS;
-			type=HeuristicsType.MANHATTAN_DISTANCE;
-			Heuristics.setWhichHeristics(HeuristicsType.MANHATTAN_DISTANCE);
+			type=HeuristicsType.Cheby_Shev_Distance;
+			Heuristics.setWhichHeristics(HeuristicsType.Cheby_Shev_Distance);
 			return new  BestFirstSearch(board,TypeOfEvaluationFuntion.DONOT_CONSIDER_DEPTH,false);
 		}
 		else if(i==4)
 		{
 			algoName=AlgorithmName.BFS;
-			type=HeuristicsType.Cheby_Shev_Distance;
-			Heuristics.setWhichHeristics(HeuristicsType.Cheby_Shev_Distance);
+			type=HeuristicsType.MisplacedTiles;
+			Heuristics.setWhichHeristics(HeuristicsType.MisplacedTiles);
 			return new  BestFirstSearch(board,TypeOfEvaluationFuntion.DONOT_CONSIDER_DEPTH,false);
 		}
 		else if(i==5)
 		{
 			algoName=AlgorithmName.ASTAR;
-			type=HeuristicsType.MANHATTAN_DISTANCE;
-			Heuristics.setWhichHeristics(HeuristicsType.MANHATTAN_DISTANCE);
+			type=HeuristicsType.MisplacedTiles;
+			Heuristics.setWhichHeristics(HeuristicsType.MisplacedTiles);
 			return new  AStar(board);
 		}
 		else if(i==6) {

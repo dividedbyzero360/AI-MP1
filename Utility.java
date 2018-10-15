@@ -49,7 +49,7 @@ public class Utility {
 				System.out.println(goalStateToRootTrace.get(i));
 			}
 
-			System.out.println("Path cost " + goalStateToRootTrace.size());
+			System.out.println("Moves: " + (goalStateToRootTrace.size()-1));
 		}
 
 	}
