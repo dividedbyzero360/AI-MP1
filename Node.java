@@ -152,7 +152,7 @@ public class Node {
 			return printableCode;
 		}
 		StringBuilder sb=new StringBuilder();
-		sb.append(titleConfig + "[");
+		sb.append(titleConfig + " [");
 		for(int i=0;i<state.length;i++)
 		{
 			sb.append(state[i]+", ");

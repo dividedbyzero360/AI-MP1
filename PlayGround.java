@@ -9,7 +9,7 @@ public class PlayGround {
 		int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};
 		Heuristics.setGoalState(goalState);
 		//int[] initialState={0,11,9,10,8,7,6,5,4,3,2,1};
-		int[] initialState={0,11,10,9,8,7,6,5,4,3,2,1};
+		//int[] initialState={0,11,10,9,8,7,6,5,4,3,2,1};
 		 //int[] initialState={1,2,6,4,5,9,7,3,0,10,11,8}; // Professors
 		//int[] initialState={1,0,3,7,5,2,6,4,9,10,11,8};  // Professor 2
 		 //int[] initialState={1,8,6,2,5,11,7,9,3,4,0,10};
@@ -18,13 +18,14 @@ public class PlayGround {
 		// int[] initialState={1,2,3,0,5,6,7,4,9,10,11,8};
 		//int[] initialState={1,2,3,4,5,6,7,8,9,10,0,11};
 		// int[] initialState={1,6,8,2,5,11,7,9,3,4,0,10};
+		int[] initialState=o.takeInitialState();
 		Board board=new Board(goalState,initialState,BlankTileMovementDirection.CLOCKWISE_STARTING_FROM_UP);
 		AlgoFactory factory=new AlgoFactory();
 		Algo algo=factory.getAlgo( o.diplayOption(), board);
 		long startTime=System.currentTimeMillis();
 		algo.run();
+		long endTime=System.currentTimeMillis();
         Utility.writeGoalTraceToScreen(algo.getGoalNode());
-        long endTime=System.currentTimeMillis();
         System.out.println("Total time: "+(endTime-startTime));
         System.out.println("States: "+algo.getNumberOfStatesExplored());
         Utility.writeGoalTraceToFile(algo.getGoalNode(),factory.getAlgoName(),factory.getHeuristicsType());
@@ -34,21 +35,19 @@ public class PlayGround {
 
 class Options
 {
-	public int diplayOption()
+	 int diplayOption()
 	{
 		System.out.println("Please select one of the following options");
 		System.out.println("1. DFS");
 		System.out.println("2. Iterative Deeping DFS");
-		System.out.println("3. BFS with Misplaced tiles");
-		System.out.println("4. BFS with Cheby_Sev_Distance");
-		System.out.println("4. BFS with Sum of PI");
-		System.out.println("5. AStar with Misplaced titles");
-		System.out.println("6. AStar with Cheby_Sev_Distance");
-		System.out.println("7. AStar with (Cheby_Sev_Distance/3)+Misplaced Titles");
-		System.out.println("8. DFS with child check");
-		System.out.println("9. BFS with Manhattan distance with child check");
-		System.out.println("10. BFS with Manhattan distance with child check");
-		System.out.println("11.BFS with Cheby_Sev_Distance with child check");
+		System.out.println("3. DFS with child check");
+		System.out.println("4. BFS with Misplaced tiles");
+		System.out.println("5. BFS with Cheby_Sev_Distance");
+		System.out.println("6. AStar with Misplaced titles");
+		System.out.println("7. AStar with Cheby_Sev_Distance");
+		System.out.println("8. BFS with Misplaced tiles with child check");
+		System.out.println("9. BFS with Cheby_Sev_Distance with child check");
+		System.out.println("10. A star experimentation with linear conflict");
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		int option=-1;
 		try{
@@ -65,14 +64,18 @@ class Options
 		return option;
 	}
 	
-	private int[] takeInitialState()
+	 int[] takeInitialState()
 	{
 		String[] line=null;
 		int[] initialState=new int[12];
-		System.out.println("Please enter space seperated initial state. 12 digit");
+		System.out.println("Please enter 12 digit space seperated initial state.");
 		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
 		 try {
 			line=br.readLine().split(" ");
+			if(line.length!=12)
+			{
+				throw new RuntimeException("Wrong input. Please restart the program and enter 12 digit space seperated initial state.");
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -85,6 +88,8 @@ class Options
 	}
 }
 
+
+//System.out.println("4. BFS with Sum of PI");
 
 //public static void main(String[] args) throws Exception {
 //	int[] goalState={1,2,3,4,5,6,7,8,9,10,11,0};

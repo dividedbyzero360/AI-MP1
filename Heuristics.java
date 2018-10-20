@@ -4,7 +4,6 @@ public final class Heuristics {
 
 	private static int[] goalState;
 
-	private static int cachedHeuristicValue = 0;
 	private static boolean cached = false;
 	private static boolean cachedLinearConflict = false;
 	private static HashMap<Integer, ArrayList<Integer>> numbersThatFollowANumberInGoalState = new HashMap<Integer, ArrayList<Integer>>();
@@ -27,9 +26,7 @@ public final class Heuristics {
 	private Heuristics() {
 	}
 
-	// public static final int getCalculatedHeuristicValue(){
-	// return cachedHeuristicValue;
-	// }
+	
 
 	public static final int getHerirsticValue(int[] state) {
 		if (whichHeristics == HeuristicsType.MisplacedTiles) {
@@ -37,12 +34,6 @@ public final class Heuristics {
 		} else if (whichHeristics == HeuristicsType.SUM_OF_PI) {
 			return Heuristics.sumPermutationInversionSlow(state);
 		}
-		// else if (whichHeristics ==
-		// HeuristicsType.SUM_OF_PI_WITH_SOLVABILITY_TEST) {
-		//
-		// return
-		// Heuristics.sumPermutationInversionSlowWithCheckForUnSolvability(state);
-		// }
 		else if (whichHeristics == HeuristicsType.MANHATTAN_DISTANCE) {
 			Heuristics.manhattanDistance(state);
 			return Heuristics.manhattanDistance(state);
@@ -58,20 +49,22 @@ public final class Heuristics {
 			int ChebyShevDistance = Heuristics.chebyShevDistance(state);
 			// int eculidianDistance=Heuristics.euclideanDistance(state);
 			// int ChebyShevDistance2=Heuristics.chebyShevDistanceV2(state);
-			int misplacedTiles = Heuristics.numberOfMisplacedTitlesSlow(state);
+			//int misplacedTiles = Heuristics.numberOfMisplacedTitlesSlow(state);
+			int linearConflict=Heuristics.linearConflict(state);
 			// int sumOfPI=Heuristics.sumPermutationInversionSlow(state);
-			System.out.println("---------------------------------------");
-			// System.out.println("Manhattan Distance is "+ manhattanDistance);
-			// System.out.println("linearConflictDistance is "+
-			// linearConflictDistance);
-			System.out.println("ChebyShevDistance  is " + ChebyShevDistance);
-			// System.out.println("ChebyShevDistance2 is "+ ChebyShevDistance2);
-			// System.out.println("eculidianDistance2 is "+ eculidianDistance);
-			System.out.println("misplacedTiles  is " + misplacedTiles);
-			// /System.out.println("sumOfPI is "+ sumOfPI);
-			System.out.println("---------------------------------------");
+//			System.out.println("---------------------------------------");
+//			// System.out.println("Manhattan Distance is "+ manhattanDistance);
+//			// System.out.println("linearConflictDistance is "+
+//			// linearConflictDistance);
+//			System.out.println("ChebyShevDistance  is " + ChebyShevDistance);
+//			// System.out.println("ChebyShevDistance2 is "+ ChebyShevDistance2);
+//			// System.out.println("eculidianDistance2 is "+ eculidianDistance);
+//			System.out.println("misplacedTiles  is " + misplacedTiles);
+//			System.out.println("linearConflict  is " + linearConflict);
+//			// /System.out.println("sumOfPI is "+ sumOfPI);
+//			System.out.println("---------------------------------------");
 			// return Math.min(manhattanDistance, linearConflictDistance) ;
-			return (ChebyShevDistance / 4) + misplacedTiles;
+			return linearConflict + ChebyShevDistance;
 		} else
 
 			return 0;
@@ -219,7 +212,7 @@ public final class Heuristics {
 
 
 	
-
+//https://codereview.stackexchange.com/questions/44427/counting-linear-conflicts-of-the-state-of-8-puzzle-for-heuristic
 	public static final int linearConflict(int[] state) {
 
 		int lc = 0;
@@ -247,7 +240,7 @@ public final class Heuristics {
 		return lc;
 
 	}
-
+	//https://codereview.stackexchange.com/questions/44427/counting-linear-conflicts-of-the-state-of-8-puzzle-for-heuristic
 	public static int inversions(int[] statePart, int[] goalPart, int count) {
 		int inversions = 0;
 		for (int i = 1, l; i < count; i++) {
@@ -263,14 +256,14 @@ public final class Heuristics {
 		}
 		return inversions;
 	}
-
+	//https://codereview.stackexchange.com/questions/44427/counting-linear-conflicts-of-the-state-of-8-puzzle-for-heuristic
 	private static int[] getRowtuple(int rowIndex, int[] state) {
 		int[] result = new int[noOfColumns];
 
 		System.arraycopy(state, rowIndex * noOfColumns, result, 0, noOfColumns);
 		return result;
 	}
-
+	//https://codereview.stackexchange.com/questions/44427/counting-linear-conflicts-of-the-state-of-8-puzzle-for-heuristic
 	private static int[] getColumntuple(int columnIndex, int noOfRows, int[] state) {
 		int[] result = new int[noOfRows];
 		for (int i = 0, j = columnIndex; i < noOfRows; i++, j += noOfColumns) {

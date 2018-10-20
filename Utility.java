@@ -74,7 +74,7 @@ public class Utility {
 		if (goalNode != null) {
 			ArrayList<String> goalStateToRootTrace = new ArrayList<String>();
 			while (goalNode != null) {
-				goalStateToRootTrace.add(goalNode.getPrintableInfo() + goalNode.getMovement().getDirectionName());
+				goalStateToRootTrace.add(goalNode.getPrintableInfo());
 				goalNode = goalNode.getParent();
 			}
 			try {
@@ -111,7 +111,6 @@ public class Utility {
 					}
 			}
 			
-			System.out.println("Path cost "+ goalStateToRootTrace.size());
 		}
 		
 	}
